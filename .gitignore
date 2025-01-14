@@ -2,3 +2,4 @@
 env
 /media
 /static
+__pycache__
