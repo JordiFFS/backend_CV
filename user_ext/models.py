@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 # Create your models here.
 class Ext(models.Model):
     user = models.OneToOneField('auth.User', on_delete=models.CASCADE, related_name='ext')
@@ -10,3 +11,6 @@ class Ext(models.Model):
     countryResidence = models.ForeignKey("tables.CountryResidence", on_delete=models.RESTRICT)
     phone = models.CharField(max_length=20)
     image = models.ImageField(null=True, upload_to='profile_pics')
+
+class Certify(models.Model):
+    ext = models.ForeignKey('user_ext.Ext', on_delete=models.CASCADE, related_name='certify')

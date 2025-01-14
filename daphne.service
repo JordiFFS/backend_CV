@@ -1,0 +1,13 @@
+[Unit]
+Description=Daphne Morgpy server
+After=network.target
+
+[Service]
+User=root
+Group=root
+WorkingDirectory=/home/mangel/Eras/proyectos/backend_morgquick
+ExecStart=/home/mangel/Eras/proyectos/backend_morgquick/daphne_start.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

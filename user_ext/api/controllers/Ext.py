@@ -24,7 +24,7 @@ class Register(APIView):
 class Login(APIView):
     def post(self, request):
         try:
-            serial = serializer.LoginSerializer(data=request.data)
+            serial = serializer.LoginSerializer(data=request.data, context={'request':request})
             if serial.is_valid():
                 serial.save()
                 return Response(serial.data, status.HTTP_201_CREATED)
@@ -46,4 +46,21 @@ class TokenVerify(APIView):
         except Exception as e:
             print(e)
             return Response({"error": [str(e)]}, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class ChangeImage(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def put(self, request):
+        try:
+            query = serializer.Ext.objects.get(user = request.user)
+            serial = serializer.ControlImg(instance=query, data=request.data)
+            if serial.is_valid():
+                serial.save()
+                return Response(serial.data, status.HTTP_200_OK)
+            return Response(serial.errors, status.HTTP_400_BAD_REQUEST)
+        except Exception as e :
+            print(e)
+            return Response({"error": [str(e)]}, status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 

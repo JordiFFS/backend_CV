@@ -79,7 +79,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'DJcv_backend.wsgi.application'
+ASGI_APPLICATION = 'DJcv_backend.asgi.application' #protocolo paso a paso
 
 
 # Database
