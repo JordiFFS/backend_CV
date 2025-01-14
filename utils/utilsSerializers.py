@@ -1,3 +1,6 @@
+import random
+import string
+import base64
 from rest_framework import serializers
 from DJcv_backend.settings import DIR, os, MEDIA_ROOT, MEDIA_URL
 from django.db.models import Q, Max, Sum, Count
@@ -31,3 +34,7 @@ def ModelCbx(model):
         }
         listData.append(jdata)
     return listData
+
+def randomstr(length):
+    random_string = ''.join(random.choices(string.ascii_lowercase, k=length))
+    return random_string

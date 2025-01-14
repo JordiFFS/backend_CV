@@ -1,7 +1,12 @@
+import os
+
 from utils.utilsSerializers import *
 from user_ext.models import Ext, User
 from django.contrib.auth.hashers import check_password
 from rest_framework.authtoken.models import Token
+
+folder_img = 'profile_pics'
+full_folder = f'{MEDIA_ROOT}{folder_img}'
 
 class ExtUserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -10,6 +15,7 @@ class ExtUserSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         data = super().to_representation(instance)
         request = self.context.get('request')
+        print(f'request: {request}')
         if instance.image:
             if request:
                 url = request.build_absolute_uri('/')[:-1]
@@ -101,3 +107,34 @@ class TokenRestore(serializers.ModelSerializer):
     class Meta :
         model = Token
         fields = '__all__'
+
+class ControlImg(serializers.Serializer):
+    image_upload = FileSerializer(write_only=True)
+    image = serializers.URLField(read_only=True)
+
+    def validate_image_upload(self, data):
+        if not data.get('change'):
+            raise serializers.ValidationError({'change': 'La imagen es requerido'})
+        return data
+    def update(self, instance, validated_data):
+        if not os.path.exists(MEDIA_ROOT):
+            os.makedirs(MEDIA_ROOT)
+        if not os.path.exists(full_folder):
+            os.makedirs(full_folder)
+        img = validated_data.get('image_upload')
+        file_name = randomstr(7)
+        while True:
+            if os.path.exists(f'{full_folder}/{file_name}.{img.get("ext")}'):
+                file_name= randomstr(7)
+            else:
+                break
+        bites = base64.b64decode(img.get('base64'))
+        fh = open(f'{full_folder}/{file_name}.{img.get("ext")}', 'wb')
+        fh.write(bites)
+        fh.close()
+        if instance.image:
+            if os.path.exists(f'{MEDIA_ROOT}{instance.image}'):
+                os.remove(f'{MEDIA_ROOT}{instance.image}')
+        instance.image = f'{folder_img}/{file_name}.{img.get("ext")}'
+        instance.save()
+        return validated_data
