@@ -9,6 +9,16 @@ folder_img = 'profile_pics'
 full_folder = f'{MEDIA_ROOT}{folder_img}'
 
 class ExtUserSerializer(serializers.ModelSerializer):
+    user = serializers.CharField(read_only=True)
+    gender = serializers.CharField(read_only=True)
+    levelStudy = serializers.CharField(read_only=True)
+    professionalTitle = serializers.CharField(read_only=True)
+    countryResidence = serializers.CharField(read_only=True)
+    user_id = serializers.IntegerField()
+    gender_id = serializers.IntegerField()
+    levelStudy_id = serializers.IntegerField()
+    professionalTitle_id = serializers.IntegerField()
+    countryResidence_id = serializers.IntegerField()
     class Meta:
         model = Ext
         fields = '__all__'
