@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'tables',
     'user_ext',
+    'certificates'
 ]
 
 MIDDLEWARE = [

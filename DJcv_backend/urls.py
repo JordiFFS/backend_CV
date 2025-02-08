@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user_ext/',include('user_ext.api.urls')),
     path('tables/',include('tables.api.urls')),
+    path('certificates/', include('certificates.api.urls')),
+
 ]
 
 from django.conf import settings

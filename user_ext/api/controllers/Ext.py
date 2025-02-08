@@ -1,4 +1,3 @@
-from django.template.context_processors import request
 
 from utils.restFramework import *
 from user_ext.api.serializers import ExtSerializers as serializer

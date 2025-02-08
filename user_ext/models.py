@@ -12,5 +12,5 @@ class Ext(models.Model):
     phone = models.CharField(max_length=20)
     image = models.ImageField(null=True, upload_to='profile_pics')
 
-class Certify(models.Model):
-    ext = models.ForeignKey('user_ext.Ext', on_delete=models.CASCADE, related_name='certify')
+class Training(models.Model):
+    ext = models.ForeignKey('user_ext.Ext', on_delete=models.CASCADE, related_name='training')
