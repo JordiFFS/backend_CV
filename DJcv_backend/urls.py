@@ -21,6 +21,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('user_ext/',include('user_ext.api.urls')),
     path('tables/',include('tables.api.urls')),
+    path('certificates/', include('certificates.api.urls')),
+
 ]
 
 from django.conf import settings
@@ -30,4 +32,4 @@ urlpatterns+=static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 urlpatterns+=static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
 
 from user_ext.views import not_found_view
-urlpatterns.append(re_path(r'^.*$', not_found_view))
+#urlpatterns.append(re_path(r'^.*$', not_found_view))
