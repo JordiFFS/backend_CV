@@ -11,7 +11,7 @@ class Register(APIView):
     ]'''
     def post(self,request):
         try:
-            serial = serializer.CreateExtSerializer(data=request.data, context={'id':0})
+            serial = serializer.CreateExtSerializer(data=request.data)
             if serial.is_valid():
                 serial.save()
                 return Response(serial.data, status.HTTP_201_CREATED)
