@@ -8,8 +8,6 @@ urlpatterns = [
     path('changeImage', controller.ChangeImage.as_view()),
     path('verifyToken', controller.TokenVerify.as_view()),
 
-    path('report', controller.Reports.as_view()),
-
     path('more_info', controller.MoreInformation.as_view()),
     path('more_info/update/<id>', controller.UpdateMoreInformation.as_view()),
     path('hobbys', controller.Hobbys.as_view()),
