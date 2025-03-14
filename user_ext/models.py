@@ -12,6 +12,12 @@ class Ext(models.Model):
     phone = models.CharField(max_length=20)
     image = models.ImageField(null=True, upload_to='profile_pics')
 
+class MoreInformation(models.Model):
+    ext = models.ForeignKey('user_ext.Ext', on_delete=models.CASCADE, related_name='more_information')
+    birthDate = models.DateField()
+    address = models.CharField(max_length=255)
+    description = models.TextField(blank=True)
+
 class Training(models.Model):
     ext = models.ForeignKey('user_ext.Ext', on_delete=models.CASCADE, related_name='training')
     studentTraining = models.CharField(max_length=255)
@@ -51,13 +57,17 @@ class Language(models.Model):
     range = models.IntegerField()
 
     def range_srt(self):
-        if (self.range < 25):
-            return 'bajo'
-        if (self.range >= 25 and self.range < 50):
-            return 'medio-bajo'
-        if (self.range >= 50 and self.range < 75):
-            return 'medio-alto'
-        return 'alto'
+        if (self.range < 20):
+            return 'A1: Nivel principiante'
+        if (self.range >= 20 and self.range < 35):
+            return 'A2: Nivel básico'
+        if (self.range >= 35 and self.range < 50):
+            return 'B1: Nivel pre-intermedio'
+        if (self.range >= 50 and self.range < 70):
+            return 'B2: Nivel intermedio'
+        if (self.range >= 70 and self.range < 85):
+            return 'C1: Nivel intermedio-alto'
+        return 'C2: Nivel avanzado'
 
 class Hobbys(models.Model):
     ext = models.ForeignKey('user_ext.Ext', on_delete=models.CASCADE, related_name='hobbys')

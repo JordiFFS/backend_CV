@@ -5,3 +5,5 @@ from .controllers.Reference import *
 from .controllers.Skills import *
 from .controllers.Training import *
 from .controllers.WorkExperience import *
+from .controllers.MoreInformation import *
+from .controllers.Reports import *

@@ -4,6 +4,7 @@ import base64
 from rest_framework import serializers
 from DJcv_backend.settings import DIR, os, MEDIA_ROOT, MEDIA_URL
 from django.db.models import Q, Max, Sum, Count
+from utils.jasperconector import SendToJasper
 
 class FileSerializer(serializers.Serializer):
     base64 = serializers.CharField(required=False, allow_blank=True)

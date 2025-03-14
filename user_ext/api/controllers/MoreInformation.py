@@ -1,13 +1,13 @@
 from utils.restFramework import *
-from user_ext.api.serializers import HobbysSerializers as serializer
+from user_ext.api.serializers import MoreInformationSerializers as serializer
 
-class Hobbys(APIView):
+class MoreInformation(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
         try:
-            serial = serializer.HobbysSerializers(data = request.data)
+            serial = serializer.MoreInformationSerializer(data = request.data)
             if serial.is_valid():
                 serial.save()
                 return Response(serial.data, status.HTTP_201_CREATED)
@@ -18,22 +18,21 @@ class Hobbys(APIView):
 
     def get(self, request):
         try:
-            query = serializer.Hobbys.objects.filter(ext__user = request.user)
-            serial = serializer.HobbysSerializers(query, many = True)
+            query = serializer.MoreInformation.objects.filter(ext__user = request.user)
+            serial = serializer.MoreInformationSerializer(query, many = True)
             return Response(serial.data, status.HTTP_200_OK)
         except Exception as e:
             print(e)
             return Response({"error": [str(e)]}, status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-class UpdateHobbys(APIView):
+class UpdateMoreInformation(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def delete(self, request, id):
         try:
-            query = serializer.Hobbys.objects.get(id = id)
+            query = serializer.MoreInformation.objects.get(id = id)
             query.delete()
             return Response("", status.HTTP_204_NO_CONTENT)
         except Exception as e:
             print(e)
-            return Response({"error": [str(e)]}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
