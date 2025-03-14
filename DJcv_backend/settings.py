@@ -89,9 +89,9 @@ ASGI_APPLICATION = 'DJcv_backend.asgi.application' #protocolo paso a paso
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "cv_data",
-        "USER": "Jordi",
-        "PASSWORD": "Mejia1017*",
+        "NAME": "name",
+        "USER": "user",
+        "PASSWORD": "password",
         "HOST": "127.0.0.1",
         "PORT": "5432",
     }
